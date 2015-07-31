@@ -93,7 +93,7 @@ table, th, td {
                         <div class="col-sm-10" data-ng-class="{'has-error':!contactmanagerform.Cellphone.$valid}">
                             <input name="Cellphone" class="form-control" type="text" placeholder="type cell phone number here"
                                    numeric data-ng-model="contactdetail.Cellphone"
-                                   data-server-validate required maxlength="100" />
+                                   data-server-validate required maxlength="10" />
                             <span style="color:red" ng-show="contactmanagerform.Cellphone.$dirty && contactmanagerform.Cellphone.$invalid">
                                 <span ng-show="contactmanagerform.Cellphone.$error.required">Cell phone is required.</span>
                             </span>
