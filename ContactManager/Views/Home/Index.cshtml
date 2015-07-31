@@ -1,0 +1,169 @@
+﻿@{
+    ViewBag.Title = "Contact Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+table, th, td {
+   border: 1px solid black;
+}
+
+/*.ng-invalid {
+    border-color: red !important;
+    border-width: 1px !important;
+}*/
+.validation-summary-errors {
+    font-weight: normal;
+    color: #f00;
+}
+
+</style>
+<toaster-container toaster-options="{'time-out': 3000}"></toaster-container>
+<div ng-cloak>
+
+
+    <div class="col-sm-10">
+        <button style="float:right; margin:10px;" ng-click="save()" class="btn-primary btn-sm " ng-show="!show">Save</button>
+        <button style="float:right; margin:10px;" ng-click="add()" class="btn-primary btn-sm " ng-show="show">Add</button>
+        <button style="float:right; margin:10px;" ng-click="cancel()" class="btn-primary btn-sm " ng-show="!show">Cancel</button>
+    </div>
+    <div class="row" ng-show="!show">
+        <div class="col-md-8">
+            <h2 class="sub-header">Contact Detail Entry</h2>
+            <form class="form-horizontal" role="form" ng-cloak novalidate>
+                <ng-form name="contactmanagerform" novalidate >
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">First Name</label>
+                        <div class="col-sm-10" data-ng-class="{'has-error':!contactmanagerform.FirstName.$valid}">
+                            <input name="FirstName" class="form-control" type="text" placeholder="type first Name here"
+                                   data-ng-model="contactdetail.FirstName"
+                                   data-server-validate required maxlength="100" />
+                            <span style="color:red" ng-show="contactmanagerform.FirstName.$dirty && contactmanagerform.FirstName.$invalid">
+                                <span ng-show="contactmanagerform.FirstName.$error.required">First Name is required.</span>
+                            </span>
+                            <div class="validation-summary-errors" data-ng-repeat="errorMessage in contactmanagerform.FirstName.$error.server">{{errorMessage}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Last Name</label>
+                        <div class="col-sm-10" data-ng-class="{'has-error':!contactmanagerform.LastName.$valid}">
+
+                            <input name="LastName" class="form-control" type="text" placeholder="type last Name here"
+                                   data-ng-model="contactdetail.LastName"
+                                   data-server-validate required maxlength="100" />
+                            <span style="color:red" ng-show="contactmanagerform.LastName.$dirty && contactmanagerform.LastName.$invalid">
+                                <span ng-show="contactmanagerform.LastName.$error.required">Last Name is required.</span>
+                            </span>
+                            <div class="validation-summary-errors" data-ng-repeat="errorMessage in contactmanagerform.LastName.$error.server">{{errorMessage}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            Email
+                        </label>
+                        <div class="col-sm-10" data-ng-class="{'has-error':!contactmanagerform.Email.$valid}">
+                            <input name="Email" class="form-control" type="text" placeholder="type email here"
+                                   data-ng-model="contactdetail.Email"
+                                   data-server-validate required maxlength="100" />
+                            <span style="color:red" ng-show="contactmanagerform.Email.$dirty && contactmanagerform.Email.$invalid">
+                                <span ng-show="contactmanagerform.Email.$error.required">Email is required.</span>
+                            </span>
+                            <div class="validation-summary-errors" data-ng-repeat="errorMessage in contactmanagerform.Email.$error.server">{{errorMessage}}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            DOB
+                        </label>
+                        <div class="col-sm-10" data-ng-class="{'has-error':!contactmanagerform.Born.$valid}">
+                            <input name="Born" class="form-control" type="date" placeholder="type dob here"
+                                   data-ng-model="contactdetail.Born"
+                                   data-server-validate required />
+                            <span style="color:red" ng-show="contactmanagerform.Born.$dirty && contactmanagerform.Born.$invalid">
+                                <span ng-show="contactmanagerform.Born.$error.required">DOB is required.</span>
+                            </span>
+                            <div class="validation-summary-errors" data-ng-repeat="errorMessage in contactmanagerform.Born.$error.server">{{errorMessage}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            Cell Phone
+                        </label>
+                        <div class="col-sm-10" data-ng-class="{'has-error':!contactmanagerform.Cellphone.$valid}">
+                            <input name="Cellphone" class="form-control" type="text" placeholder="type cell phone number here"
+                                   numeric data-ng-model="contactdetail.Cellphone"
+                                   data-server-validate required maxlength="100" />
+                            <span style="color:red" ng-show="contactmanagerform.Cellphone.$dirty && contactmanagerform.Cellphone.$invalid">
+                                <span ng-show="contactmanagerform.Cellphone.$error.required">Cell phone is required.</span>
+                            </span>
+                            <div class="validation-summary-errors" data-ng-repeat="errorMessage in contactmanagerform.Cellphone.$error.server">{{errorMessage}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            Is Active
+                        </label>
+                        <div class="col-sm-1">
+                            <input type="checkbox" class="form-control" ng-model="contactdetail.IsActive" ng-checked="contactdetail.IsActive" />
+
+                        </div>
+
+
+
+                    </div>
+                </ng-form>
+            </form>
+        </div>
+
+    </div>
+    <div class="row" ng-show="show">
+        <div class="col-md-10">
+            <h2 class="sub-header">Contact Details</h2>
+            <div>
+                <table class="table tblBorder">
+                    <thead>
+                        <tr>
+                            @*<th>ID</th>*@
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Born</th>
+                            <th>Cell Phone</th>
+                            <th>Is Active</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="Contact in contactdetaildata">
+                        <tr>
+                            @*<td><a href="#" ng-click="select(Contact)">{{Contact.ID}}</a></td>*@
+                            <td><a href="#" ng-click="select(Contact)">{{Contact.FirstName}}</a></td>
+                            <td>{{Contact.LastName}}</td>
+                            <td>{{Contact.Email}} </td>
+                            <td>{{Contact.Born|date:'dd-MM-yyyy'}}</td>
+                            <td>{{Contact.Cellphone}}</td>
+                            <td><input type="checkbox" ng-model="Contact.IsActive" ng-checked="Contact.IsActive" disabled /></td>
+                            <td><button class="btn-warning" ng-click="edit(Contact)">Edit</button></td>
+                            <td><button class="btn-danger" ng-click="delete(Contact)">Delete</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        @*ContactDetail
+            int ID
+            string FirstName
+            string LastName
+            string Email
+            DateTime Born
+            string Cellphone
+            bool IsActive*@
+
+
+
+
+    </div>
+
+</div>
